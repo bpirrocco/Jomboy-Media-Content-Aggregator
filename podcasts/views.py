@@ -7,6 +7,7 @@ from .models import Episode
 class HomePageView(ListView):
     template_name = "homepage.html"
     model = Episode 
+    context_object_name = "episodes"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
