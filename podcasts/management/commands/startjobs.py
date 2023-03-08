@@ -59,6 +59,11 @@ def fetch_talkpython_episodes():
     _feed = feedparser.parse("https://talkpython.fm/episodes/rss")
     save_new_episodes(_feed)
 
+def fetch_talkinbaseball_episodes():
+    """Fetches episodes from RSS of the Talkin' Baseball Podcast"""
+    _feed = feedparser.parse("https://feeds.megaphone.fm/JBM1846488996")
+    save_new_episodes(_feed)
+
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
@@ -69,25 +74,35 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(), "default")
-        scheduler.add_job(
-            fetch_realpython_episodes,
-            trigger="interval",
-            minutes=2,
-            id="The Real Python Podcast",
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job: The Real Python Podcast.")
+        # scheduler.add_job(
+        #     fetch_realpython_episodes,
+        #     trigger="interval",
+        #     minutes=2,
+        #     id="The Real Python Podcast",
+        #     max_instances=1,
+        #     replace_existing=True,
+        # )
+        # logger.info("Added job: The Real Python Podcast.")
+
+        # scheduler.add_job(
+        #     fetch_talkpython_episodes,
+        #     trigger="interval",
+        #     minutes=2,
+        #     id="Talk Python Feed",
+        #     max_instances=1,
+        #     replace_existing=True,
+        # )
+        # logger.info("Added job: Talk Python Feed.")
 
         scheduler.add_job(
-            fetch_talkpython_episodes,
+            fetch_talkinbaseball_episodes,
             trigger="interval",
             minutes=2,
-            id="Talk Python Feed",
+            id="Talkin' Baseball Podcast",
             max_instances=1,
             replace_existing=True,
         )
-        logger.info("Added job: Talk Python Feed.")
+        logger.info("Added job: Talkin' Baseball Podcast.")
 
         scheduler.add_job(
             delete_old_job_executions,
