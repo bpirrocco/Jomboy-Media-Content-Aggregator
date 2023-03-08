@@ -35,3 +35,18 @@ def save_new_episodes(feed):
                 guid=item.guid,
             )
             episode.save()
+
+def fetch_realpython_episodes():
+    """Fetches episodes from RSS of the Real Python Podcast"""
+    _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
+    save_new_episodes(_feed)
+
+def fetch_talkpython_episodes():
+    """Fetches episodes from RSS of the Talk Python Podcast"""
+    _feed = feedparser.parse("https://talkpython.fm/episodes/rss")
+    save_new_episodes(_feed)
+
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        fetch_realpython_episodes()
+        fetch_talkpython_episodes()
