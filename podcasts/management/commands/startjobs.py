@@ -51,19 +51,24 @@ def save_new_episodes(feed):
             episode.save()
             i+=1
 
-def fetch_realpython_episodes():
-    """Fetches episodes from RSS of the Real Python Podcast"""
-    _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
-    save_new_episodes(_feed)
+# def fetch_realpython_episodes():
+#     """Fetches episodes from RSS of the Real Python Podcast"""
+#     _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
+#     save_new_episodes(_feed)
 
-def fetch_talkpython_episodes():
-    """Fetches episodes from RSS of the Talk Python Podcast"""
-    _feed = feedparser.parse("https://talkpython.fm/episodes/rss")
-    save_new_episodes(_feed)
+# def fetch_talkpython_episodes():
+#     """Fetches episodes from RSS of the Talk Python Podcast"""
+#     _feed = feedparser.parse("https://talkpython.fm/episodes/rss")
+#     save_new_episodes(_feed)
 
 def fetch_talkinbaseball_episodes():
-    """Fetches episodes from RSS of the Talkin' Baseball Podcast"""
+    """Fetches episodes from RSS of the Talkin' Baseball Podcast."""
     _feed = feedparser.parse("https://feeds.megaphone.fm/JBM1846488996")
+    save_new_episodes(_feed)
+
+def fetch_roserotation_episodes():
+    """Fetches episodes from RSS of the Chris Rose Rotation Podcast."""
+    _feed = feedparser.parse("https://feeds.megaphone.fm/jbm1555582346")
     save_new_episodes(_feed)
 
 def delete_old_job_executions(max_age=604_800):
@@ -105,6 +110,16 @@ class Command(BaseCommand):
             replace_existing=True,
         )
         logger.info("Added job: Talkin' Baseball Podcast.")
+
+        scheduler.add_job(
+            fetch_roserotation_episodes,
+            trigger="interval",
+            seconds=30,
+            id="The Chris Rose Rotation Podcast",
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added job: The Chris Rose Rotation Podcast.")
 
         scheduler.add_job(
             delete_old_job_executions,
