@@ -42,7 +42,7 @@ def save_new_episodes(feed):
                 title=item.title,
                 description=item.description,
                 pub_date=parser.parse(item.published),
-                link=item.link,
+                # link=item.enclosure.url,
                 image=podcast_image,
                 podcast_name=podcast_title,
                 guid=item.guid,
@@ -97,7 +97,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_talkinbaseball_episodes,
             trigger="interval",
-            minutes=2,
+            seconds=30,
             id="Talkin' Baseball Podcast",
             max_instances=1,
             replace_existing=True,
