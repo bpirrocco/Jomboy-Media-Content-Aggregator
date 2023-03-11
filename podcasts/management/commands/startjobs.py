@@ -71,6 +71,11 @@ def fetch_roserotation_episodes():
     _feed = feedparser.parse("https://feeds.megaphone.fm/jbm1555582346")
     save_new_episodes(_feed)
 
+def fetch_talkingiants_episodes():
+    """Fetches episodes from RSS of the Talkin' Giants Podcast."""
+    _feed = feedparser.parse("https://feeds.megaphone.fm/JBM2878672294")
+    save_new_episodes(_feed)
+
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
@@ -120,6 +125,16 @@ class Command(BaseCommand):
             replace_existing=True,
         )
         logger.info("Added job: The Chris Rose Rotation Podcast.")
+
+        scheduler.add_job(
+            fetch_talkingiants_episodes,
+            trigger="interval",
+            seconds=30,
+            id="Talkin' Giants Podcast",
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added job: Talkin' Giants Podcast.")
 
         scheduler.add_job(
             delete_old_job_executions,
