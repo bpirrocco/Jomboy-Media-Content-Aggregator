@@ -38,16 +38,18 @@ def save_new_episodes(feed):
 
     for item in feed.entries:
         if not Episode.objects.filter(guid=item.guid).exists():
+            i = 0
             episode = Episode(
                 title=item.title,
                 description=item.description,
                 pub_date=parser.parse(item.published),
-                # link=item.enclosure.url,
+                link = item.enclosures[i]["href"],
                 image=podcast_image,
                 podcast_name=podcast_title,
                 guid=item.guid,
             )
             episode.save()
+            i+=1
 
 def fetch_realpython_episodes():
     """Fetches episodes from RSS of the Real Python Podcast"""
