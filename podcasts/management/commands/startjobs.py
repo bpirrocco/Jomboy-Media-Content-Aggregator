@@ -76,6 +76,11 @@ def fetch_talkingiants_episodes():
     _feed = feedparser.parse("https://feeds.megaphone.fm/JBM2878672294")
     save_new_episodes(_feed)
 
+def fetch_sheastation_episodes():
+    """Fetches episodes from RSS of the Shea Station Podcast."""
+    _feed = feedparser.parse("https://feeds.megaphone.fm/JBM2013644202")
+    save_new_episodes(_feed)
+    
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
