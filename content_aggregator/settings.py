@@ -148,3 +148,7 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+LOGIN_REDIRECT_URL = "dashboard"
+
+LOGOUT_REDIRECT_URL = "dashboard"
