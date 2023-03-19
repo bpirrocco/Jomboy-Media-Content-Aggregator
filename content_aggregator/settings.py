@@ -153,6 +153,10 @@ LOGIN_REDIRECT_URL = "dashboard"
 
 LOGOUT_REDIRECT_URL = "dashboard"
 
-EMAIL_HOST = "localhost"
+# EMAIL_HOST = "localhost"
 
-EMAIL_PORT = 1025
+# EMAIL_PORT = 8025
+
+if DEBUG:
+
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
