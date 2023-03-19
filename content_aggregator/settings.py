@@ -152,3 +152,7 @@ LOGGING = {
 LOGIN_REDIRECT_URL = "dashboard"
 
 LOGOUT_REDIRECT_URL = "dashboard"
+
+EMAIL_HOST = "localhost"
+
+EMAIL_PORT = 1025
