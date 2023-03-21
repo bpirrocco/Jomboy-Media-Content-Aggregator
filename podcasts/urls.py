@@ -1,7 +1,10 @@
 from django.urls import path
 
-from .views import HomePageView
+from .views import HomePageView, see_request, user_info, staff_place
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="homepage"),
+    path("see_request/", see_request),
+    path("user_info/", user_info),
+    path("staff_place/", staff_place)
 ]
