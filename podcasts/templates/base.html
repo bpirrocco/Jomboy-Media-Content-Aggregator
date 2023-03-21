@@ -15,10 +15,31 @@
     </head>
 
     <body>
+        <header>
+            <nav class="navbar">
+                <a href="#0" class="navbar-brand">
+                    <img src="{% static 'imgs/jomboy-logo.png" alt="Jomboy Logo">
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link active" href="bio.html">Podcasts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="portfolio.html">Warehouse Games</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="interact.html">Entertainment</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         
         {% block content %}
-        {% endblock %}
 
+        {% endblock %}
 
         <script
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"

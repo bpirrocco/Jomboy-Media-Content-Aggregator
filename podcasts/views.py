@@ -2,13 +2,15 @@ from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .models import Episode
 
+LOGIN_URL = "../accounts/login/"
+
 
 class HomePageView(LoginRequiredMixin, ListView):
-    login_url = "../accounts/login/"
+    login_url = LOGIN_URL
     # redirect_field_name = "redirect_to"
 
     template_name = "homepage.html"
@@ -18,6 +20,15 @@ class HomePageView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["episodes"] = Episode.objects.filter().order_by("-pub_date")[:10]
+        return context
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    login_url = LOGIN_URL
+
+    template_name = "dashboard/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 
 def see_request(request):
