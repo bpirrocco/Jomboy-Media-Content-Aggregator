@@ -16,7 +16,7 @@ body {
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-a {
+/* a {
     color: var(--red);
 }
 
@@ -24,7 +24,7 @@ a:hover,
 a:focus {
     color: var(--blue);
     text-decoration: none;
-}
+} */
 
 #site-logo {
     max-height: 200px;
