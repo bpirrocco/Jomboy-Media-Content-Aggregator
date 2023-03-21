@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -49,3 +50,11 @@ def user_info(request):
 @user_passes_test(lambda user: user.is_staff)
 def staff_place(request):
     return HttpResponse("Employees must wash hands", content_type="text/plain")
+
+@login_required
+def add_messages(request):
+    username = request.user.username
+    messages.add_message(request, messages.INFO, f"Hello {username}")
+    messages.add_message(request, messages.WARNING, "DANGER WILL ROBINSON")
+
+    return HttpResponse("Messages added", content_type="text/plain")
