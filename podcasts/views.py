@@ -25,13 +25,13 @@ class HomePageView(LoginRequiredMixin, ListView):
 class DashboardView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
 
-    template_name = "base.html"
+    template_name = "dashboard/dashboard.html"
     model = Episode
     context_object_name = "episodes"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["episodes"] = Episode.objects.order_by('-id')[:6][::-1]
+        context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
         return context
 
 def see_request(request):
