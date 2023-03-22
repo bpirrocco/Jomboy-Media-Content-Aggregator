@@ -6,25 +6,40 @@ Color Palette: https://coolors.co/e63946-f1faee-a8dadc-457b9d-1d3557
     --red: #e63946;
     --off-white: #f9f9f9;
     --blue: #457b9d;
-    --dark-blue: #1d3557;
+    --primary: #0B2240;
+    --primary-more-hazy: #0B2240BF;
+    --primary-hazy: #0B224040;
+    --background: #E5E8ED;
 }
   
-body {
+#body {
     min-height: 100vh;
-    background-color: var(--off-white);
+    background-color: var(--background);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 /* a {
     color: var(--red);
+} */
+
+/* ************** */
+/* Navbar Styling */
+/* ************** */
+
+#nav {
+    border-bottom: 1px solid var(--primary-hazy);
 }
 
-a:hover,
-a:focus {
-    color: var(--blue);
+.nav-link {
+    color: var(--primary-more-hazy);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--primary);
     text-decoration: none;
-} */
+}
 
 #site-logo {
     max-height: 200px;
