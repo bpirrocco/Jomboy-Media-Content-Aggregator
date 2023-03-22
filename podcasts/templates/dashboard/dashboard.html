@@ -4,33 +4,29 @@
 {% block content %} 
 
 <main class="container flex-grow-1 align-items-center" id="main">
-    <div class="row justify-content-center">
-        <!-- <div class="col">  -->
-            
-            {% for episode in episodes %}
-                <section class="card w-25 m-2">
-                    
-                    <div class="">
-                        <img
-                        src="{{ episode.image }}"
-                        class="img-fluid ml-3 my-3"
-                        alt="{{ episode.podcast_name }}"
-                        />
-                    </div>
-                    <div class="">
-                        <div class="card-body ml-3">
-                        <h3 class="card-title">{{ episode.title }}</h3>
-                        <!-- <p class="card-text">{{ episode.description }}</p> -->
-                        <a href="{{ episode.link }}">
-                            <p class="card-text">🎧 Listen to this episode</p>
-                        </a>
-                        </div>
-                    </div>
-                    
-                </section>
-            {% endfor %}           
-            
-        <!-- </div>     -->
+    <div class="row justify-content-center">          
+        {% for episode in episodes %}
+            <section class="card w-25 m-2 text-center">
+                
+                <div class="">
+                    <img
+                    src="{{ episode.image }}"
+                    class="img-fluid ml-3 my-3"
+                    alt="{{ episode.podcast_name }}"
+                    />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ episode.title }}</h3>
+                    <!-- <p class="card-text">{{ episode.description }}</p> -->
+                </div>
+                <div class="card-footer" style="border: none; background-color: white;">
+                    <a href="{{ episode.link }}" style="text-decoration: none;">
+                        🎧 Listen here
+                    </a>
+                </div>                 
+                
+            </section>
+        {% endfor %}                       
     </div>
 </main>
 
