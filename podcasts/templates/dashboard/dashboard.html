@@ -4,11 +4,16 @@
 {% block content %} 
 
 <main class="container flex-grow-1 align-items-center" id="main">
+
+    <div class="row text-center" id="headline">
+        <h1>Welcome back, User</h1>
+    </div>
+
     <div class="row justify-content-center">          
         {% for episode in episodes %}
             <section class="card w-25 m-2 text-center">
                 
-                <div class="">
+                <div>
                     <img
                     src="{{ episode.image }}"
                     class="img-fluid ml-3 my-3"
