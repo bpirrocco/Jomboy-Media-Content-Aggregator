@@ -1,0 +1,24 @@
+:root {
+    --red: #e63946;
+    --off-white: #f9f9f9;
+    --blue: #457b9d;
+    --primary: #0B2240;
+    --primary-more-hazy: #0B2240BF;
+    --primary-hazy: #0B224040;
+    --background: #E5E8ED;
+}
+  
+#body {
+    min-height: 100vh;
+    background-color: var(--background);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+label, input {
+    display: block;
+}
+
+span.helptext {
+    display: none;
+}
