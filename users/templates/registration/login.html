@@ -2,16 +2,38 @@
 
 {% block content %}
 
-<h2>Login</h2>
+<main style="margin: 0; padding: 0;">
+    <div class="container" style="margin: 0; padding: 0;">
+        <div class="row" style="margin: 0; padding: 0;">
+            <div class="col-8" id="banner">
+                <h1 id="bannerH1">All our content.</h1>
+                <h1 id="bannerH1">All in one place.</h1>
+            </div>
+            <div class="col-4">
+                <div class="login">
+                    <h2>Login</h2>
+                    <form method="post" class="loginForm">
+                        {% csrf_token %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-</form>
+                        <div class="mb-3">
+                            <input type="username" class="form-control" name="username" autocomplete="username" maxlength="150"
+                                   required placeholder="Username">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" name="password" autocomplete="current-password" required
+                                   placeholder="Password">
+                        </div>
+                        <div id="signup" class="form-text mb-2">
+                            Not a user? Sign up <a href="{% url 'register' %}">here.</a>
+                        </div>
+                        <input type="submit" value="Login">
+                    </form>
+                    <a href="{% url 'password_reset' %}">Forgot password?</a>
+                    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-<a href="{% url 'dashboard' %}">Back to dashboard</a>
-<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
-<a href="{% url 'password_reset' %}">Reset password</a>
-<a href="{% url 'register' %}">Register</a>
 {% endblock %}
