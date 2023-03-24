@@ -9,11 +9,11 @@ from .models import Episode
 LOGIN_URL = "../accounts/login/"
 
 
-class HomePageView(LoginRequiredMixin, ListView):
+class PodcastView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
     # redirect_field_name = "redirect_to"
 
-    template_name = "homepage.html"
+    template_name = "dashboard/podcasts.html"
     model = Episode 
     context_object_name = "episodes"
 
