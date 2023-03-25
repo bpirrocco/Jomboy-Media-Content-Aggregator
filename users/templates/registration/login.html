@@ -24,12 +24,12 @@
                                    placeholder="Password">
                         </div>
                         <div id="signup" class="form-text mb-2">
-                            Not a user? Sign up <a href="{% url 'register' %}">here.</a>
+                            Not a user? Sign up <a href="{% url 'users:register' %}">here.</a>
                         </div>
                         <input type="submit" value="Login">
                     </form>
-                    <a href="{% url 'password_reset' %}">Forgot password?</a>
-                    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+                    <a href="{% url 'users:password_reset' %}">Forgot password?</a>
+                    <a href="{% url 'users:social:begin' 'github' %}">Login with GitHub</a>
                 </div>
             </div>
         </div>
