@@ -8,7 +8,7 @@
     <div class="row" id="headline">
         <div class="col-5">
             <h1>Welcome back, {{ user.username|default:'Guest' }}!</h1>
-            <select name="dashboard" id="dashboard">
+            <select name="dashboard" id="dashboard" onchange="selectView()">
                 <option value="recents">Recents</option>
                 <option value="favorites">Favorites</option>
                 <option value="discover">Discover</option>
@@ -41,5 +41,7 @@
         {% endfor %}                       
     </div>
 </main>
+
+<script src="{% static 'podcasts/script.js' %}"></script>
 
 {% endblock %}
