@@ -17,22 +17,22 @@
     </div>
 
     <div class="row justify-content-center">          
-        {% for episode in episodes %}
+        {% for favorite in favorites %}
             <section class="card w-25 m-2 text-center">
                 
                 <div>
                     <img
-                    src="{{ episode.image }}"
+                    src="{{ favorite.image }}"
                     class="img-fluid ml-3 my-3"
-                    alt="{{ episode.podcast_name }}"
+                    alt="{{ favorite.podcast_name }}"
                     />
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ episode.title }}</h3>
+                    <h3 class="card-title">{{ favorite.title }}</h3>
                     <!-- <p class="card-text">{{ episode.description }}</p> -->
                 </div>
                 <div class="card-footer" style="border: none; background-color: white;">
-                    <a href="{{ episode.link }}" style="text-decoration: none;">
+                    <a href="{{ favorite.link }}" style="text-decoration: none;">
                         🎧 Listen here
                     </a>
                 </div>                 
