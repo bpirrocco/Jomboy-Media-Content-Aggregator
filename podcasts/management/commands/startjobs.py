@@ -86,7 +86,7 @@ def delete_old_job_executions(max_age=604_800):
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
 
-def save_new_podcast(feed):
+def save_new_podcast(feed, category):
     """Saves new content to the database.
 
 
@@ -107,7 +107,7 @@ def save_new_podcast(feed):
         name = name,
         description = feed.channel.description,
         image = feed.channel.image["href"],
-        categories = feed.channel.categories,
+        categories = category,
         link = feed.channel.link,
         content_type = "PC"
         )
@@ -115,7 +115,15 @@ def save_new_podcast(feed):
 
 def fetch_talkinbaseball_podcast():
     _feed = feedparser.parse("https://feeds.megaphone.fm/JBM1846488996")
-    save_new_podcast(_feed)
+    save_new_podcast(_feed, "Baseball")
+
+def fetch_roserotation_podcast():
+    _feed = feedparser.parse("https://feeds.megaphone.fm/jbm1555582346")
+    save_new_podcast(_feed, "Baseball")
+
+def fetch_talkingiants_podcast():
+    _feed = feedparser.parse("https://feeds.megaphone.fm/JBM2878672294")
+    save_new_podcast(_feed, "Football")
 
 
 class Command(BaseCommand):
@@ -158,8 +166,26 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_talkinbaseball_podcast,
             trigger="interval",
-            seconds=30,
+            seconds=5,
             id="Talkin' Baseball Content",
+            max_instances=1,
+            replace_existing=True,
+        )
+
+        scheduler.add_job(
+            fetch_roserotation_podcast,
+            trigger="interval",
+            seconds=5,
+            id="Rose Rotation Content",
+            max_instances=1,
+            replace_existing=True,
+        )
+
+        scheduler.add_job(
+            fetch_talkingiants_podcast,
+            trigger="interval",
+            seconds=5,
+            id="Talkin' Giants Content",
             max_instances=1,
             replace_existing=True,
         )
