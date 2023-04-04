@@ -107,7 +107,7 @@ def save_new_podcast(feed):
         name = name,
         description = feed.channel.description,
         image = feed.channel.image["href"],
-        categories = feed.channel.category["text"],
+        categories = feed.channel.categories,
         link = feed.channel.link,
         content_type = "PC"
         )
@@ -124,25 +124,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(), "default")
-        # scheduler.add_job(
-        #     fetch_realpython_episodes,
-        #     trigger="interval",
-        #     minutes=2,
-        #     id="The Real Python Podcast",
-        #     max_instances=1,
-        #     replace_existing=True,
-        # )
-        # logger.info("Added job: The Real Python Podcast.")
-
-        # scheduler.add_job(
-        #     fetch_talkpython_episodes,
-        #     trigger="interval",
-        #     minutes=2,
-        #     id="Talk Python Feed",
-        #     max_instances=1,
-        #     replace_existing=True,
-        # )
-        # logger.info("Added job: Talk Python Feed.")
 
         scheduler.add_job(
             fetch_talkinbaseball_episodes,
@@ -173,6 +154,15 @@ class Command(BaseCommand):
             replace_existing=True,
         )
         logger.info("Added job: Talkin' Giants Podcast.")
+
+        scheduler.add_job(
+            fetch_talkinbaseball_podcast,
+            trigger="interval",
+            seconds=30,
+            id="Talkin' Baseball Content",
+            max_instances=1,
+            replace_existing=True,
+        )
 
         scheduler.add_job(
             delete_old_job_executions,
