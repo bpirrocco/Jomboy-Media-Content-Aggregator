@@ -14,7 +14,7 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 
 # Models
-from podcasts.models import Episode
+from podcasts.models import Episode, Content
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +84,39 @@ def fetch_sheastation_episodes():
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
+
+
+def save_new_podcast(feed):
+    """Saves new content to the database.
+
+
+    Checks the content name against the content currently stored in the
+
+    database. If not found, then a new `Content` is added to the database.
+
+
+    Args:
+
+        feed: requires a feedparser object
+
+    """
+    name = feed.channel.title
+
+    if not Content.objects.filter(name=name).exists():
+        content = Content(
+        name = name,
+        description = feed.channel.description,
+        image = feed.channel.image["href"],
+        categories = feed.channel.category["text"],
+        link = feed.channel.link,
+        content_type = "PC"
+        )
+        content.save()
+
+def fetch_talkinbaseball_podcast():
+    _feed = feedparser.parse("https://feeds.megaphone.fm/JBM1846488996")
+    save_new_podcast(_feed)
+
 
 class Command(BaseCommand):
     help = "Runs apscheduler."
