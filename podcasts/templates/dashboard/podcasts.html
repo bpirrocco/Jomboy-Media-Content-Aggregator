@@ -31,7 +31,7 @@
                 <div class="card-body ml-3">
                   <h3 class="card-title">{{ item.name }}</h3>
                   <p class="card-text">{{ item.description }}</p>
-                  <a href="{{ item.link }}">
+                  <a href="{{ item.link }}" id="link">
                     <p class="card-text">🎧 Listen to this podcast</p>
                   </a>
                   <a href= "{% url 'users:favorite_add' item.id %}" class="btn btn-outline-danger favorite" id="favorite">
