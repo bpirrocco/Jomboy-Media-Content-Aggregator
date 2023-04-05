@@ -16,6 +16,12 @@ class Episode(models.Model):
         return f"{self.podcast_name}: {self.title}"
 
 class Content(models.Model):
+
+    class NewManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset() 
+
+
     PODCAST = "PC"
     YOUTUBE = "YT"
     CONTENT_TYPE_CHOICES = [
@@ -30,6 +36,8 @@ class Content(models.Model):
     link = models.URLField()
     content_type = models.CharField(max_length=7, choices=CONTENT_TYPE_CHOICES)
     favorite = models.ManyToManyField(User, related_name="content_favorite", default=None, blank=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager()  # custom manager
 
     def __str__(self) -> str:
         return f"{self.content_type}: {self.name}"

@@ -34,7 +34,7 @@
                   <a href="{{ episode.link }}">
                     <p class="card-text">🎧 Listen to this episode</p>
                   </a>
-                  <a href="{% url 'users:favorite' episode.id %}" class="btn btn-outline-danger favorite" id="favorite">
+                  <a href="{% url 'users:favorite_add' episode.id %}" class="btn btn-outline-danger favorite" id="favorite">
                     <i class="bi bi-heart"></i>
                   </a>
                 </div>

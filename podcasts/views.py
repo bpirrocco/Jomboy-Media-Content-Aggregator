@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView
 
-from .models import Episode
+from .models import Episode, Content
 
 LOGIN_URL = "../accounts/login/"
 
@@ -15,7 +15,6 @@ LOGIN_URL = "../accounts/login/"
 
 class PodcastView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
-    # redirect_field_name = "redirect_to"
 
     template_name = "dashboard/podcasts.html"
     model = Episode 
@@ -36,5 +35,6 @@ class DashboardView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
-        context["favorites"] = Episode.objects.filter(favorite=self.request.user)
+        # context["favorites"] = Episode.objects.filter(favorite=self.request.user)
+        context["favorites"] = Content.newmanager.filter(favorite=request.user)
         return context

@@ -7,5 +7,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('social/', include('social_django.urls', namespace='social')),
     path("register", register, name="register"),
-    path("favorite/<int:id>/", favorite, name="favorite")
+    path("favorite/<int:id>/", favorite, name="favorite_add")
 ]

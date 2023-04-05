@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!-- Look into Django REST API Framework to access the information 
-     you need for this view. I need to make an API to access the
-     amount of information I'm trying to access.
-     Follow Django REST Framework tutorial to design one for this today. -->
 
 {% block content %} 
 
@@ -13,7 +9,7 @@
     <div class="row" id="headline">
         <div class="col-5">
             <h1>Welcome back, {{ user.username|default:'Guest' }}!</h1>
-            <select name="dashboard" id="dashboard" onchange="selectView()">
+            <select name="dashboard" id="dashboard">
                 <option value="recents">Recents</option>
                 <option value="favorites">Favorites</option>
                 <option value="discover">Discover</option>

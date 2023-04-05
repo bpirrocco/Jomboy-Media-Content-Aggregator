@@ -16,8 +16,8 @@ function favorite(btn) {
 // *******************
 
 
-function selectView() {
-    const select = document.getElementById('dashboard');
-    const view = select.value;
-    window.location.href = `${view}/`
-}
+// function selectView() {
+//     const select = document.getElementById('dashboard');
+//     const view = select.value;
+//     window.location.href = `${view}/`
+// }
