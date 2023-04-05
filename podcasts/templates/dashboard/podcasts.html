@@ -22,19 +22,19 @@
             <div class="row no-gutters">
               <div class="col-md-2 my-auto">
                 <img
-                  src="{{ content.image }}"
+                  src="{{ item.image }}"
                   class="img-fluid ml-3 my-3"
-                  alt="{{ content.name }}"
+                  alt="{{ item.name }}"
                 />
               </div>
               <div class="col-md-10">
                 <div class="card-body ml-3">
                   <h3 class="card-title">{{ content.name }}</h3>
                   <p class="card-text">{{ content.description }}</p>
-                  <a href="{{ content.link }}">
+                  <a href="{{ item.link }}">
                     <p class="card-text">🎧 Listen to this podcast</p>
                   </a>
-                  <!-- <a href= url 'users:favorite_add' content.id " class="btn btn-outline-danger favorite" id="favorite"> -->
+                  <a href= "{% url 'users:favorite_add' item.id %}" class="btn btn-outline-danger favorite" id="favorite">
                     <i class="bi bi-heart"></i>
                   </a>
                 </div>

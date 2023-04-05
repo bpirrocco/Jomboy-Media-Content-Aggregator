@@ -22,15 +22,15 @@ class PodcastView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["content"] = Content.objects.filter().order_by("name")[:10]
+        context["content"] = Content.objects.all()
         return context
 
 class DashboardView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
 
     template_name = "dashboard/dashboard.html"
-    model = Episode
-    context_object_name = "episodes"
+    model = Content
+    context_object_name = "content"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
