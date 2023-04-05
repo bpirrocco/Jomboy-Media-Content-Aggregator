@@ -36,5 +36,5 @@ class DashboardView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
         # context["favorites"] = Episode.objects.filter(favorite=self.request.user)
-        context["favorites"] = Content.newmanager.filter(favorite=request.user)
+        context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
         return context
