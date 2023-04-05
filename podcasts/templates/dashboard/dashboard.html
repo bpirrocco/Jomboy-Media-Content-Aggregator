@@ -7,13 +7,16 @@
 <main class="container flex-grow-1 align-items-center" id="main">
 
     <div class="row" id="headline">
-        <div class="col-5">
+        <div class="col-6">
             <h1>Welcome back, {{ user.username|default:'Guest' }}!</h1>
-            <select name="dashboard" id="dashboard">
+            <!-- <select name="dashboard" id="dashboard">
                 <option value="recents">Recents</option>
                 <option value="favorites">Favorites</option>
                 <option value="discover">Discover</option>
-            </select>
+            </select> -->
+            <button>Your Favorites</button>
+            <button>Your Podcasts</button>
+            <button>Your Videos</button>
         </div>
     </div>
 
@@ -25,11 +28,11 @@
                     <img
                     src="{{ favorite.image }}"
                     class="img-fluid ml-3 my-3"
-                    alt="{{ favorite.podcast_name }}"
+                    alt="{{ favorite.name }}"
                     />
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ favorite.title }}</h3>
+                    <h3 class="card-title">{{ favorite.name }}</h3>
                     <!-- <p class="card-text">{{ episode.description }}</p> -->
                 </div>
                 <div class="card-footer" style="border: none; background-color: white;">
