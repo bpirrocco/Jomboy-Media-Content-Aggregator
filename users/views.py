@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from users.forms import CustomUserCreationForm
 
-from podcasts.models import Episode
+from podcasts.models import Episode, Content
 
 def dashboard(request):
     return render(request, "users/dashboard.html")
@@ -27,7 +27,7 @@ def register(request):
 
 @login_required
 def favorite(request, id):
-    content = get_object_or_404(Episode, id=id)
+    content = get_object_or_404(Content, id=id)
     if content.favorite.filter(id=request.user.id).exists():
         content.favorite.remove(request.user)
     else:

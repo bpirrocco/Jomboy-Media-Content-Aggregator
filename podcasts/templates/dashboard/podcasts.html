@@ -17,24 +17,24 @@
     <main class="container flex-grow-1 mt-3">
       <div class="row">
         <div class="col">
-          {% for episode in episodes %}
+          {% for item in content %}
           <section class="card mb-3">
             <div class="row no-gutters">
               <div class="col-md-2 my-auto">
                 <img
-                  src="{{ episode.image }}"
+                  src="{{ content.image }}"
                   class="img-fluid ml-3 my-3"
-                  alt="{{ episode.podcast_name }}"
+                  alt="{{ content.name }}"
                 />
               </div>
               <div class="col-md-10">
                 <div class="card-body ml-3">
-                  <h3 class="card-title">{{ episode.title }}</h3>
-                  <p class="card-text">{{ episode.description }}</p>
-                  <a href="{{ episode.link }}">
-                    <p class="card-text">🎧 Listen to this episode</p>
+                  <h3 class="card-title">{{ content.name }}</h3>
+                  <p class="card-text">{{ content.description }}</p>
+                  <a href="{{ content.link }}">
+                    <p class="card-text">🎧 Listen to this podcast</p>
                   </a>
-                  <a href="{% url 'users:favorite_add' episode.id %}" class="btn btn-outline-danger favorite" id="favorite">
+                  <!-- <a href= url 'users:favorite_add' content.id " class="btn btn-outline-danger favorite" id="favorite"> -->
                     <i class="bi bi-heart"></i>
                   </a>
                 </div>
