@@ -8,7 +8,9 @@
 
     <div class="row" id="headline">
         <div class="col-6">
-            <h1>Welcome back, {{ user.username|default:'Guest' }}!</h1>
+            <h1>Welcome back, {{ user.username|default:'Guest' }}!
+                {{ querystrings }}
+            </h1>
             <!-- <select name="dashboard" id="dashboard">
                 <option value="recents">Recents</option>
                 <option value="favorites">Favorites</option>

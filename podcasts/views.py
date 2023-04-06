@@ -35,9 +35,16 @@ class DashboardView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         qs = self.request.GET
-        context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
-        context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
-        context["podcasts"] = Content.newmanager.filter(content_type="PC")
-        context["videos"] = Content.newmanager.filter(content_type="YT")
-        context["querystrings"] = qs
+        qs = qs.dict()
+        qs = qs.values()
+        # context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
+        if ("podcasts" in qs):
+            context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="PC")
+        elif ("videos" in qs):
+            context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="YT")
+        else:
+            context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
+
+        
+        context["querystrings"] = self.request.GET
         return context
