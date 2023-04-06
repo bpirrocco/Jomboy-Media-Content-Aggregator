@@ -16,9 +16,9 @@
                 <option value="favorites">Favorites</option>
                 <option value="discover">Discover</option>
             </select> -->
-            <button>Your Favorites</button>
-            <button>Your Podcasts</button>
-            <button>Your Videos</button>
+            <a href="{% url 'dashboard' %}">Your Favorites</a>
+            <a href="{% url 'dashboard' content='podcasts' %}">Your Podcasts</a>
+            <a href="{% url 'dashboard' content='videos' %}">Your Videos</a>
         </div>
     </div>
 
