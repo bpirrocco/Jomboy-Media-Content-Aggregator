@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, get_list_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 
 from .models import Episode, Content
 
@@ -23,6 +23,24 @@ class PodcastView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["content"] = Content.objects.all()
+        return context
+
+class EpisodeView(LoginRequiredMixin, ListView):
+    login_url = LOGIN_URL
+
+    template_name = "dashboard/content_detail.html"
+    model = Episode
+    context_object_name = "episodes"
+
+    def get_queryset(self):
+        qs = super().get_queryset().filter(
+            podcast_name_id = self.kwargs["podcast_name_id"]
+        )
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["episodes"] = self.get_queryset()
         return context
 
 class DashboardView(LoginRequiredMixin, ListView):
