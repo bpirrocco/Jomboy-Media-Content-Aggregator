@@ -57,6 +57,4 @@ class DashboardView(LoginRequiredMixin, ListView):
         #     context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
         context["favorites"] = self.get_queryset()
 
-        
-        context["querystrings"] = self.request.GET
         return context
