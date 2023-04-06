@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_list_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -32,18 +32,30 @@ class DashboardView(LoginRequiredMixin, ListView):
     model = Content
     context_object_name = "content"
 
+    def get_queryset(self):
+        # self.favorites = get_list_or_404(Content, content_type=self.kwargs['content_type'])
+        # self.favorites = self.favorites.filter(favorite=self.request.user)
+        if "content_type" in self.kwargs:
+            return super().get_queryset().filter(
+                favorite=self.request.user).filter(
+                    content_type=self.kwargs["content_type"]
+                )
+        else:
+            return super().get_queryset().filter(
+                favorite=self.request.user
+            )
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = self.request.GET
-        qs = qs.dict()
-        qs = qs.values()
         # context["episodes"] = Episode.objects.order_by('-pub_date')[:6]
-        if ("podcasts" in qs):
-            context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="PC")
-        elif ("videos" in qs):
-            context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="YT")
-        else:
-            context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
+        # if (self.content_type == "PC"):
+        #     context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="PC")
+        # elif (self.content_type == "YT"):
+        #     context["favorites"] = Content.newmanager.filter(favorite=self.request.user).filter(content_type="YT")
+        # else:
+        #     context["favorites"] = Content.newmanager.filter(favorite=self.request.user)
+        context["favorites"] = self.get_queryset()
 
         
         context["querystrings"] = self.request.GET

@@ -17,8 +17,8 @@
                 <option value="discover">Discover</option>
             </select> -->
             <a href="{% url 'dashboard' %}">Your Favorites</a>
-            <a href="{% url 'dashboard' content='podcasts' %}">Your Podcasts</a>
-            <a href="{% url 'dashboard' content='videos' %}">Your Videos</a>
+            <a href="{% url 'dashboard_filter' content_type='PC' %}">Your Podcasts</a>
+            <a href="{% url 'dashboard_filter' content_type='YT' %}">Your Videos</a>
         </div>
     </div>
 
