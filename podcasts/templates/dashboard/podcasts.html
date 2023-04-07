@@ -29,7 +29,11 @@
               </div>
               <div class="col-md-10">
                 <div class="card-body ml-3">
-                  <h3 class="card-title"><a href="{% url 'content_detail' podcast_name=item.id %}" style="text-decoration: none; color: black;">{{ item.name }}</a></h3>
+                  <h3 class="card-title">
+                    <a href="{% url 'content_detail' podcast_name_id=item.id %}" style="text-decoration: none; color: black;">
+                      {{ item.name }}
+                    </a>
+                  </h3>
                   <p class="card-text">{{ item.description }}</p>
                   <a href="{{ item.link }}" id="link">
                     <p class="card-text">🎧 Listen to this podcast</p>

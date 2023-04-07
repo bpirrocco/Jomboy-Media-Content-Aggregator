@@ -16,7 +16,11 @@
                     />
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title"><a href="#0">{{ item.title }}</a></h3>
+                    <h3 class="card-title">
+                        <a href="{{ item.link }}" style="text-decoration: none; color: black;">
+                            {{ item.title }}
+                        </a>
+                    </h3>
                     <p class="card-text" style="max-height: 10rem; overflow-y: scroll; scrollbar-width: none;">{{ item.description }}</p>
                 </div>
                 <div class="card-footer" style="border: none; background-color: white;">
