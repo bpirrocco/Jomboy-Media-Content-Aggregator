@@ -4,50 +4,55 @@
 <!-- <body class="d-flex flex-column"> -->
 
     {% if messages %}
-      <ul class="messages" style="background-color:#ccc">
-        {% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-            {{ message }}
-          </li>
-        {% endfor %}
-      </ul>
+        <ul class="messages" style="background-color:#ccc">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
 
 
     <main class="container flex-grow-1 mt-3">
-      <div class="row">
-        <div class="col">
-          {% for item in content %}
-          <section class="card mb-3">
-            <div class="row no-gutters">
-              <div class="col-md-2 my-auto">
-                <img
-                  src="{{ item.image }}"
-                  class="img-fluid ml-3 my-3"
-                  alt="{{ item.name }}"
-                />
-              </div>
-              <div class="col-md-10">
-                <div class="card-body ml-3">
-                  <h3 class="card-title">
-                    <a href="{% url 'content_detail' podcast_name_id=item.id %}" style="text-decoration: none; color: black;">
-                      {{ item.name }}
-                    </a>
-                  </h3>
-                  <p class="card-text">{{ item.description }}</p>
-                  <a href="{{ item.link }}" id="link">
-                    <p class="card-text">🎧 Listen to this podcast</p>
-                  </a>
-                  <a href= "{% url 'users:favorite_add' item.id %}" class="btn btn-outline-danger favorite" id="favorite">
-                    <i class="bi bi-heart"></i>
-                  </a>
-                </div>
-              </div>
+        <div class="row">
+            <div class="col">
+                {% for item in content %}
+                    <section class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-2 my-auto">
+                                <img
+                                src="{{ item.image }}"
+                                class="img-fluid ml-3 my-3"
+                                alt="{{ item.name }}"
+                                />
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body ml-3">
+                                    <h3 class="card-title">
+                                        <a href="{% url 'content_detail' podcast_name_id=item.id %}" 
+                                           style="text-decoration: none; color: black;">
+                                            {{ item.name }}
+                                        </a>
+                                    </h3>
+                                    <p class="card-text">{{ item.description }}</p>
+                                    <a href="{{ item.link }}" id="link">
+                                        <p class="card-text">🎧 Listen to this podcast</p>
+                                    </a>
+                                    <a href= "{% url 'users:favorite_add' item.id %}" 
+                                       {% if item.favorite %} class="btn btn-danger favorite" 
+                                       {$ else %} class="btn btn-outline-danger favorite" 
+                                       {% endif %}
+                                       id="favorite">
+                                        <i class="bi bi-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %}
             </div>
-          </section>
-          {% endfor %}
         </div>
-      </div>
     </main>
 <!-- </body> -->
 {% endblock %}
