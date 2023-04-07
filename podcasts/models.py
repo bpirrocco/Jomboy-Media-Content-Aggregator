@@ -29,6 +29,10 @@ class Content(models.Model):
     def __str__(self) -> str:
         return f"{self.content_type}: {self.name}"
 
+class Youtube_Content(Content):
+
+    channel_id = models.CharField(max_length)
+
 class Episode(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
