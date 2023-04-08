@@ -31,7 +31,7 @@ class Content(models.Model):
 
 class Youtube_Content(Content):
 
-    channel_id = models.CharField(max_length)
+    channel_id = models.CharField(max_length=100)
 
 class Episode(models.Model):
     title = models.CharField(max_length=200)

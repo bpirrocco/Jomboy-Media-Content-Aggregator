@@ -53,15 +53,23 @@ def save_new_episodes(feed, podcast_title):
             episode.save()
             i+=1
 
-# def fetch_realpython_episodes():
-#     """Fetches episodes from RSS of the Real Python Podcast"""
-#     _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
-#     save_new_episodes(_feed)
+# I'm making the fetching functions more modular. To do this I need to add the RSS Feed url as
+# a property of the Podcast sub-model of the Content Model. Then, I can pass a list of all
+# podcast objects to the function to fetch all episodes.
 
-# def fetch_talkpython_episodes():
-#     """Fetches episodes from RSS of the Talk Python Podcast"""
-#     _feed = feedparser.parse("https://talkpython.fm/episodes/rss")
-#     save_new_episodes(_feed)
+def fetch_podcast_episodes(podcasts):
+    """Fetches episode information from a list of Podcast objects.
+    
+        Args: 
+            
+            podcasts: list of Podcast objects.
+    
+    """
+    for podcast in podcasts:
+        rss = podcast.rss
+        podcast_title = podcast.id
+        _feed = feedparser.parse(rss)
+        save_new_episodes(_feed, podcast_title)
 
 def fetch_talkinbaseball_episodes():
     """Fetches episodes from RSS of the Talkin' Baseball Podcast."""
