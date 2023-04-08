@@ -41,3 +41,9 @@ function onPlayerStateChange(event) {
 function stopVideo() {
   player.stopVideo();
 }
+
+
+
+// {/* <script src="{% static 'podcasts/player.js' %}"
+// defer
+// data-video-id="{{ video_id }}"></script> */}
