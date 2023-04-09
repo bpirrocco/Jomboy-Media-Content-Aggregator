@@ -14,10 +14,16 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 
 # Models
-from podcasts.models import Episode, Content
+from podcasts.models import Episode, Content, PodcastContent, YoutubeContent
 
 logger = logging.getLogger(__name__)
 
+feed_dict = {"feed_dict": 
+            [{"name": "Talkin' Baseball", "rss_feed": "https://feeds.megaphone.fm/JBM1846488996", "category": "Baseball"},
+             {"name": "Rose Rotation", "rss_feed": "https://feeds.megaphone.fm/jbm1555582346", "category": "Baseball"},
+             {"name": "Talkin' Giants", "rss_feed": "https://feeds.megaphone.fm/JBM2878672294", "category": "Football"},]}
+
+podcasts = PodcastContent.objects.all()
 
 
 
@@ -191,6 +197,28 @@ class Command(BaseCommand):
             replace_existing=True,
         )
         logger.info("Added job: Talkin' Giants Podcast.")
+
+        scheduler.add_job(
+            fetch_podcast_data,
+            trigger="interval",
+            seconds=30,
+            kwargs=feed_dict,
+            id="Podcast Data",
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added job: Fetch Podcast Data")
+
+        scheduler.add_job(
+            fetch_podcast_episodes,
+            trigger="interval",
+            seconds = 30,
+            args=podcasts,
+            id="Podcast Episodes",
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added job: Fetch Podcast Episodes")
 
         scheduler.add_job(
             fetch_talkinbaseball_podcast,
