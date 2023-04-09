@@ -46,6 +46,7 @@ class EpisodeView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["episodes"] = self.get_queryset()
+        context["jumbotron"] = self.get_queryset()[0].image
         return context
 
 class DashboardView(LoginRequiredMixin, ListView):
