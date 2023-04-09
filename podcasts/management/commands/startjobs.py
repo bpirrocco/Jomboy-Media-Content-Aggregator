@@ -141,6 +141,19 @@ def fetch_talkingiants_podcast():
     _feed = feedparser.parse("https://feeds.megaphone.fm/JBM2878672294")
     save_new_podcast(_feed, "Football")
 
+def fetch_podcast_data(feed_dict):
+    """Fetches data to create PodcastContent objects.
+    
+        Args:
+            
+            feed_dict: a dictionary of RSS Feeds mapped to their genre
+            
+    """
+    for item in feed_dict:
+        feed = item.get("rss_feed")
+        category = item.get("category")
+        save_new_podcast(feed, category)
+
 
 class Command(BaseCommand):
     help = "Runs apscheduler."
