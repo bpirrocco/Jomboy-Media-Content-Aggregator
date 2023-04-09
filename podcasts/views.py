@@ -50,6 +50,10 @@ class DashboardView(LoginRequiredMixin, ListView):
     model = Content
     context_object_name = "content"
 
+    # I need to change this view to use the new multitable models I created
+    # I probably don't need to use the get_queryset method anymore, just a simple
+    # if statement that grabs all Podcast/Youtube content objects
+
     def get_queryset(self):
         # self.favorites = get_list_or_404(Content, content_type=self.kwargs['content_type'])
         # self.favorites = self.favorites.filter(favorite=self.request.user)
