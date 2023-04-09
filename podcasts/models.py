@@ -44,9 +44,11 @@ class Episode(models.Model):
     pub_date = models.DateTimeField()
     link = models.URLField()
     image = models.URLField()
-    podcast_name = models.ForeignKey(Content, on_delete=models.CASCADE)
+    podcast_name = models.ForeignKey(PodcastContent, on_delete=models.CASCADE)
     favorite = models.ManyToManyField(User, related_name="episode_favorite", default=None, blank=True)
     guid = models.CharField(max_length=50)
 
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
+
+# Now I need to make a multitable model for the Podcast Episodes and the Youtube Videos

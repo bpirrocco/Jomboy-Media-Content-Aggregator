@@ -40,8 +40,8 @@
                                         <p class="card-text">🎧 Listen to this podcast</p>
                                     </a>
                                     <a href= "{% url 'users:favorite_add' item.id %}" 
-                                       {% if item.favorite %} class="btn btn-danger favorite" 
-                                       {$ else %} class="btn btn-outline-danger favorite" 
+                                       {% if item in favorites %} class="btn btn-danger favorite" 
+                                       {% else %} class="btn btn-outline-danger favorite" 
                                        {% endif %}
                                        id="favorite">
                                         <i class="bi bi-heart"></i>

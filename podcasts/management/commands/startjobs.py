@@ -29,6 +29,7 @@ feed_dict = {"feed_dict":
              {"name": "Talkin' Giants", "rss_feed": "https://feeds.megaphone.fm/JBM2878672294", "category": "Football"},]}
 
 podcasts = PodcastContent.objects.all()
+episode_arg  = {"podcasts": podcasts}
 
     
 def delete_old_job_executions(max_age=604_800):
@@ -58,7 +59,7 @@ class Command(BaseCommand):
             fetch_podcast_episodes,
             trigger="interval",
             seconds = 30,
-            args=podcasts,
+            kwargs=episode_arg,
             id="Podcast Episodes",
             max_instances=1,
             replace_existing=True,

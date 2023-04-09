@@ -20,9 +20,14 @@ class ContentView(LoginRequiredMixin, ListView):
     model = Content 
     context_object_name = "content"
 
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            favorite = self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["content"] = Content.objects.all()
+        context["favorites"] = self.get_queryset()
         return context
 
 class EpisodeView(LoginRequiredMixin, ListView):

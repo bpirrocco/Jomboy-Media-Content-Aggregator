@@ -76,7 +76,7 @@ def fetch_podcast_episodes(podcasts):
     """
     for podcast in podcasts:
         rss = podcast.rss
-        podcast_title = podcast.id
+        podcast_title = podcast
         feed_object = feedparser.parse(rss)
         save_new_episodes(feed_object, podcast_title)
 
