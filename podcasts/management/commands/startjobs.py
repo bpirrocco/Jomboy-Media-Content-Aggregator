@@ -131,7 +131,7 @@ def save_new_podcast(feed, category):
         image = feed.channel.image["href"],
         categories = category,
         link = feed.channel.link,
-        content_type = "PC"
+        # content_type = "PC"
         )
         content.save()
 
