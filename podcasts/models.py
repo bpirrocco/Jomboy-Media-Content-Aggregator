@@ -9,25 +9,25 @@ class Content(models.Model):
             return super().get_queryset() 
 
 
-    PODCAST = "PC"
-    YOUTUBE = "YT"
-    CONTENT_TYPE_CHOICES = [
-        (PODCAST, "Podcast"),
-        (YOUTUBE, "Youtube")
-    ]
+    # PODCAST = "PC"
+    # YOUTUBE = "YT"
+    # CONTENT_TYPE_CHOICES = [
+    #     (PODCAST, "Podcast"),
+    #     (YOUTUBE, "Youtube")
+    # ]
 
     name = models.CharField(max_length=100)
     description = models.TextField()
     image = models.URLField()
     categories = models.TextField()
     link = models.URLField()
-    content_type = models.CharField(max_length=7, choices=CONTENT_TYPE_CHOICES)
+    # content_type = models.CharField(max_length=7, choices=CONTENT_TYPE_CHOICES)
     favorite = models.ManyToManyField(User, related_name="content_favorite", default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager()  # custom manager
 
     def __str__(self) -> str:
-        return f"{self.content_type}: {self.name}"
+        return f"{self.name}"
 
 class PodcastContent(Content):
 

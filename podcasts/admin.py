@@ -8,4 +8,4 @@ class EpisodeAdmin(admin.ModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ("name", "content_type", "categories")
+    list_display = ("name", "categories")
