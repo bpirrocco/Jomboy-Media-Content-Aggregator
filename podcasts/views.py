@@ -13,10 +13,10 @@ LOGIN_URL = "../accounts/login/"
 #       to show the episodes the user has favorited. Or rather add it as a template I can
 #       include using the selector on the dashboard.
 
-class PodcastView(LoginRequiredMixin, ListView):
+class ContentView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
 
-    template_name = "dashboard/podcasts.html"
+    template_name = "dashboard/content.html"
     model = Content 
     context_object_name = "content"
 
