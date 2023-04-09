@@ -1,6 +1,3 @@
-# Standard Library
-import logging
-
 # Django
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -31,11 +28,12 @@ def fetch_podcast_data(feed_dict):
             
     """
     for item in feed_dict:
-        feed = item.get("rss_feed")
+        feed_string = item.get("rss_feed")
+        feed_object = feedparser.parse(feed_string)
         category = item.get("category")
-        save_new_podcast(feed, category)
+        save_new_podcast(feed_object, feed_string, category)
 
-def save_new_podcast(feed, category):
+def save_new_podcast(feed_object, feed_string, category):
     """Saves new content to the database.
 
 
@@ -49,16 +47,16 @@ def save_new_podcast(feed, category):
         feed: requires a feedparser object
 
     """
-    name = feed.channel.title
+    name = feed_object.channel.title
 
-    if not Content.objects.filter(name=name).exists():
-        content = Content(
+    if not PodcastContent.objects.filter(name=name).exists():
+        content = PodcastContent(
         name = name,
-        description = feed.channel.description,
-        image = feed.channel.image["href"],
+        description = feed_object.channel.description,
+        image = feed_object.channel.image["href"],
         categories = category,
-        link = feed.channel.link,
-        # content_type = "PC"
+        link = feed_object.channel.link,
+        rss = feed_string
         )
         content.save()
 
@@ -79,10 +77,10 @@ def fetch_podcast_episodes(podcasts):
     for podcast in podcasts:
         rss = podcast.rss
         podcast_title = podcast.id
-        _feed = feedparser.parse(rss)
-        save_new_episodes(_feed, podcast_title)
+        feed_object = feedparser.parse(rss)
+        save_new_episodes(feed_object, podcast_title)
 
-def save_new_episodes(feed, podcast_title):
+def save_new_episodes(feed_object, podcast_title):
     """Saves new episodes to the database.
 
 
@@ -97,9 +95,9 @@ def save_new_episodes(feed, podcast_title):
 
     """
     # podcast_title = feed.channel.title
-    podcast_image = feed.channel.image["href"]
+    podcast_image = feed_object.channel.image["href"]
 
-    for item in feed.entries:
+    for item in feed_object.entries:
         if not Episode.objects.filter(guid=item.guid).exists():
             i = 0
             episode = Episode(
