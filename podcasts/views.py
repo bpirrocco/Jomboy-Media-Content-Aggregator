@@ -86,3 +86,6 @@ class DashboardView(LoginRequiredMixin, ListView):
         context["favorites"] = self.get_queryset()
 
         return context
+
+class YoutubeContentView(LoginRequiredMixin, ListView):
+    pass

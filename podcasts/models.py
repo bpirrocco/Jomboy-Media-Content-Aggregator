@@ -51,7 +51,9 @@ class Episode(models.Model):
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
 
-# TODO: I need to make a multitable model for the Podcast Episodes and the Youtube Videos
+# DONE: I need to make a multitable model for the Podcast Episodes and the Youtube Videos
+#       This is not necessary, as I'm pulling the youtube videos in using the API, never storing them in the db
+
 # TODO: I need to change the content detail view to use the new multitable views
 # TODO: Pull in a few Jomboy Youtube channels
 # TODO: Fill out all dead links
