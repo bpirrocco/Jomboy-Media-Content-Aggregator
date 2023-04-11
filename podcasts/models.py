@@ -51,4 +51,10 @@ class Episode(models.Model):
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
 
-# Now I need to make a multitable model for the Podcast Episodes and the Youtube Videos
+# TODO: I need to make a multitable model for the Podcast Episodes and the Youtube Videos
+# TODO: I need to change the content detail view to use the new multitable views
+# TODO: Pull in a few Jomboy Youtube channels
+# TODO: Fill out all dead links
+# TODO: Style all users templates
+# TODO: Look into migrating this to a Postgres Database
+# That should be enough to call this app done! 
