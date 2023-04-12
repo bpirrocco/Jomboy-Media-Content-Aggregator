@@ -9,9 +9,69 @@ import googleapiclient.errors
 
 from django.conf import settings
 
-scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
+from podcasts.models import YoutubeContent
 
-feed_dict = [{"rss_feed": "rss", "genre": "baseball"}, {"rss_feed": "rss", "genre": "baseball"}, {"rss_feed": "rss", "genre": "football"}]
+SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
+API_SERVICE_NAME = "youtube"
+API_VERSION = "v3"
+
+def fetch_youtube_channels(channel_id_dict):
+    """Fetches data to create YoutubeContent objects.
+    
+        Args:
+            
+            channel_id_dict: a dictionary of channel_id's mapped to their genre
+           
+    """
+
+    youtube = googleapiclient.discovery.build(
+    API_SERVICE_NAME, API_VERSION, developerKey=settings.YOUTUBE_API_KEY)
+
+    channel_id_list = []
+    for item in channel_id_dict:
+        channel_id_list.append(item.get("channel_id"))
+        channel_id_list = ','.join(channel_id_list)
+
+    category_list = []
+    for item in channel_id_dict:
+        category_list.append(item.get("category"))
+        category_list.reverse()
+
+    request = youtube.channels().list(
+        part="snippet,contentDetails,statistics",
+        maxResults=25,
+        id=item.get("channel_id_list")
+    )
+    response = request.execute()
+
+    for i in range(len(response['items'])):
+        save_new_channel(response["items"][i], category_list[i])
+
+def save_new_channel(response_item, category):
+    """Saves new YoutubeContent to the database.
+
+
+    Checks the channel_id against the content currently stored in the
+
+    database. If not found, then a new `YoutubeContent` is added to the database.
+
+
+    Args:
+
+        response_item: requires a response item from the youtube api
+
+        category: a category for the YoutubeContent database entry
+
+    """
+    youtube_content = YoutubeContent(
+        name = response_item["title"],
+        description = response_item["description"],
+        image = response_item["thumbnails"]["high"]["url"],
+        categories = category,
+        channel_id = response_item["id"],
+        upload_id = response_item["contentDetails"]["relatedPlaylists"]["uploads"],
+    )
+    youtube_content.save()
 
 def get_video_ids(response):
     data = []
@@ -37,7 +97,7 @@ def create_video_urls(data):
 def main(playlist_id):
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    # os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
     api_service_name = "youtube"
     api_version = "v3"
@@ -65,6 +125,3 @@ def main(playlist_id):
 # if __name__ == "__main__":
     # playlist_id = "UUl9E4Zxa8CVr2LBLD0_TaNg"
     # main()
-    for item in feed_dict:
-        print(item.get("rss_feed"))
-        print(item.get("genre"))

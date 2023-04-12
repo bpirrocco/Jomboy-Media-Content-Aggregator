@@ -31,6 +31,9 @@ feed_dict = {"feed_dict":
 podcasts = PodcastContent.objects.all()
 episode_arg  = {"podcasts": podcasts}
 
+CHANNEL_ID_DICT = {"channel_id_dict":
+                  [{"name": "Warehouse Games", "channel_id": "UCIBJINNTKXHp7fkfpJqcpjw", "category": "Sports"}]}
+
     
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
