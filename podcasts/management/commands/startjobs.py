@@ -19,7 +19,7 @@ from podcasts.models import Episode, Content, PodcastContent, YoutubeContent
 
 # Functions
 from ...common.podcasts.functions import fetch_podcast_data, fetch_podcast_episodes
-from ...common.youtube import functions
+from ...common.youtube.functions import fetch_youtube_channels
 
 logger = logging.getLogger(__name__)
 
@@ -61,13 +61,24 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_podcast_episodes,
             trigger="interval",
-            seconds = 30,
+            seconds=30,
             kwargs=episode_arg,
             id="Podcast Episodes",
             max_instances=1,
             replace_existing=True,
         )
         logger.info("Added job: Fetch Podcast Episodes")
+
+        scheduler.add_job(
+            fetch_youtube_channels,
+            trigger="interval",
+            seconds=30,
+            kwargs=CHANNEL_ID_DICT,
+            id="Youtube Channel Data",
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added job: Fetch Youtube Channels")
 
         scheduler.add_job(
             delete_old_job_executions,
