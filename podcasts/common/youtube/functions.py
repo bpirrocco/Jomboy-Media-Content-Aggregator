@@ -86,6 +86,15 @@ def save_new_channel(response_item, category):
 # ***************
 
 
+class YoutubeVideo:
+    def __init__(self, name, description, pub_date, thumbnail, video_id, channel_id, **kwargs):
+        self.name = name
+        self.description = description
+        self.pub_date = pub_date
+        self.thumbnail = thumbnail
+        self.video_id = video_id
+        self.channel_id = channel_id
+
 def fetch_upload_playlist(upload_id):
     """Fetches uploads playlist data from Youtube data API.
     
@@ -110,3 +119,31 @@ def fetch_upload_playlist(upload_id):
     response = request.execute()
 
     return response
+
+def create_youtube_video(video):
+    """Creates a YoutubeVideo object.
+    
+    Args: 
+    
+        video: a single video item returned from the Youtube API
+        
+    """
+    video_object = YoutubeVideo(
+        name = video["snippet"]["title"],
+        description = video["snippet"]["description"],
+        pub_date = video["snippet"]["publishedAt"],
+        thumbnail = video["snippet"]["thumbnail"]["high"]["url"],
+        video_id = video["contentDetail"]["videoId"],
+        channel_id = video["snippet"]["channelId"],
+    )
+
+def create_video_list(response):
+    video_list = []
+
+    for item in response['items']:
+        video = create_youtube_video(item)
+        video_list.append(video)
+    
+    return video_list
+
+def youtube_content_view(
