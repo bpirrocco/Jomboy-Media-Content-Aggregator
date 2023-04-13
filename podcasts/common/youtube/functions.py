@@ -13,6 +13,12 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
 
+
+# *******************
+# StartJobs Functions
+# *******************
+
+
 def fetch_youtube_channels(channel_id_dict):
     """Fetches data to create YoutubeContent objects.
     
@@ -73,3 +79,34 @@ def save_new_channel(response_item, category):
         upload_id = response_item["contentDetails"]["relatedPlaylists"]["uploads"],
     )
     youtube_content.save()
+
+
+# ***************
+# Views Functions
+# ***************
+
+
+def fetch_upload_playlist(upload_id):
+    """Fetches uploads playlist data from Youtube data API.
+    
+    Used by YoutubeContentView
+    
+    Args:
+    
+        upload_id: the upload id for a given youtube channel
+        
+    """
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+    youtube = googleapiclient.discovery.build(
+    API_SERVICE_NAME, API_VERSION, developerKey=settings.YOUTUBE_API_KEY,
+    cache_discovery=False)
+
+    request = youtube.playlistItems().list(
+        part="snippet,contentDetails",
+        maxResults=25,
+        id=upload_id,
+    )
+    response = request.execute()
+
+    return response

@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView, DetailView
 
-from .models import Episode, Content
+from .models import Episode, Content, YoutubeContent
+
+from .common.youtube.functions import fetch_upload_playlist
 
 LOGIN_URL = "../accounts/login/"
 
@@ -88,4 +90,22 @@ class DashboardView(LoginRequiredMixin, ListView):
         return context
 
 class YoutubeContentView(LoginRequiredMixin, ListView):
-    pass
+    login = LOGIN_URL
+
+    template_name = "dashboard/youtube_content.html"
+    model = YoutubeContent
+    context_object_name = "channel"
+    
+
+    def get_queryset(self):
+        qs = super().get_queryset().filter(
+            name = self.kwargs["name"]
+        )
+        return qs
+
+    def get_uploads(channel):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["channel"] = self.get_queryset()
