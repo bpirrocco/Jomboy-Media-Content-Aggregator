@@ -137,13 +137,21 @@ def create_youtube_video(video):
         channel_id = video["snippet"]["channelId"],
     )
 
-def create_video_list(response):
+    return video_object
+
+def create_video_list(upload_id):
+    """Fetches and formats data for YoutubeContentView.
+    
+    Args: 
+    
+        upload_id: the upload id for a given youtube channel
+        
+    """
     video_list = []
+    response = fetch_upload_playlist(upload_id)
 
     for item in response['items']:
         video = create_youtube_video(item)
         video_list.append(video)
     
     return video_list
-
-def youtube_content_view(

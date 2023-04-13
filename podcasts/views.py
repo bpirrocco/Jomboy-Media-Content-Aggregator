@@ -6,7 +6,7 @@ from django.views.generic import ListView, TemplateView, DetailView
 
 from .models import Episode, Content, YoutubeContent
 
-from .common.youtube.functions import fetch_upload_playlist
+from .common.youtube.functions import create_video_list
 
 LOGIN_URL = "../accounts/login/"
 
@@ -95,7 +95,7 @@ class YoutubeContentView(LoginRequiredMixin, ListView):
     template_name = "dashboard/youtube_content.html"
     model = YoutubeContent
     context_object_name = "channel"
-    
+
 
     def get_queryset(self):
         qs = super().get_queryset().filter(
@@ -103,9 +103,7 @@ class YoutubeContentView(LoginRequiredMixin, ListView):
         )
         return qs
 
-    def get_uploads(channel):
-        pass
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["channel"] = self.get_queryset()
+        context[""]
