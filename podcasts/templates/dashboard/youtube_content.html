@@ -2,6 +2,38 @@
 {% load static %}
 {% block content %}
 
-<h1>{{ video_list }}</h1>
+<main class="container flex-grow-1 align-items-center" id="main">
+
+    <div 
+        class="container-fluid jumbotron justify-content-center img-fluid mx-auto d-block" 
+        style="background: url({{ jumbotron }}) no-repeat fixed; 
+               background-position-x: center; background-position-y: 5rem;
+               background-size: 75%;
+               height: 70vh; display: flex; justify-content: center; align-items: center;">
+    </div>  
+
+    <div class="row justify-content-center">        
+        {% for item in video_list %}
+            <section class="card w-25 m-2 text-center">
+                
+                <div>
+                    <img
+                    src="{{ item.thumbnail }}"
+                    class="img-fluid ml-3 my-3"
+                    alt="{{ item.title }}"
+                    />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">
+                            {{ item.title }}
+                    </h3>
+                    <p class="card-text" style="max-height: 10rem; overflow-y: scroll; scrollbar-width: none;">{{ item.description }}</p>
+                </div>            
+                
+            </section>
+        {% endfor %}                       
+    </div>
+
+</main>
 
 {% endblock %}
