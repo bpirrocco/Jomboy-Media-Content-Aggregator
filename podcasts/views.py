@@ -106,4 +106,6 @@ class YoutubeContentView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["channel"] = self.get_queryset()
-        context[""]
+        context["video_list"] = create_video_list(context["channel"]["upload_id"])
+
+        return context
