@@ -1,5 +1,5 @@
 import os
-import json
+import logging
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -12,6 +12,8 @@ from podcasts.models import YoutubeContent
 SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
+
+logger = logging.getLogger(__name__)
 
 
 # *******************
@@ -114,7 +116,7 @@ def fetch_upload_playlist(upload_id):
     request = youtube.playlistItems().list(
         part="snippet,contentDetails",
         maxResults=25,
-        id=upload_id,
+        playlistId=upload_id,
     )
     response = request.execute()
 
@@ -132,8 +134,8 @@ def create_youtube_video(video):
         name = video["snippet"]["title"],
         description = video["snippet"]["description"],
         pub_date = video["snippet"]["publishedAt"],
-        thumbnail = video["snippet"]["thumbnail"]["high"]["url"],
-        video_id = video["contentDetail"]["videoId"],
+        thumbnail = video["snippet"]["thumbnails"]["high"]["url"],
+        video_id = video["contentDetails"]["videoId"],
         channel_id = video["snippet"]["channelId"],
     )
 
