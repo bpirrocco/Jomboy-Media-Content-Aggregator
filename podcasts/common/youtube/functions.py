@@ -72,15 +72,18 @@ def save_new_channel(response_item, category):
         category: a category for the YoutubeContent database entry
 
     """
-    youtube_content = YoutubeContent(
-        name = response_item["snippet"]["title"],
-        description = response_item["snippet"]["description"],
-        image = response_item["snippet"]["thumbnails"]["high"]["url"],
-        categories = category,
-        channel_id = response_item["id"],
-        upload_id = response_item["contentDetails"]["relatedPlaylists"]["uploads"],
-    )
-    youtube_content.save()
+    channel_id = response_item["id"]
+
+    if not YoutubeContent.objects.filter(channel_id=channel_id).exists():
+        youtube_content = YoutubeContent(
+            name = response_item["snippet"]["title"],
+            description = response_item["snippet"]["description"],
+            image = response_item["snippet"]["thumbnails"]["high"]["url"],
+            categories = category,
+            channel_id = channel_id,
+            upload_id = response_item["contentDetails"]["relatedPlaylists"]["uploads"],
+        )
+        youtube_content.save()
 
 
 # ***************
