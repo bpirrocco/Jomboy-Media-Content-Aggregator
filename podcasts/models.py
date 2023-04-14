@@ -9,18 +9,10 @@ class Content(models.Model):
             return super().get_queryset() 
 
 
-    # PODCAST = "PC"
-    # YOUTUBE = "YT"
-    # CONTENT_TYPE_CHOICES = [
-    #     (PODCAST, "Podcast"),
-    #     (YOUTUBE, "Youtube")
-    # ]
-
     name = models.CharField(max_length=100)
     description = models.TextField(default=None)
     image = models.URLField()
     categories = models.TextField()
-    # content_type = models.CharField(max_length=7, choices=CONTENT_TYPE_CHOICES)
     favorite = models.ManyToManyField(User, related_name="content_favorite", default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager()  # custom manager
@@ -51,10 +43,6 @@ class Episode(models.Model):
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
 
-# DONE: I need to make a multitable model for the Podcast Episodes and the Youtube Videos
-#       This is not necessary, as I'm pulling the youtube videos in using the API, never storing them in the db
-
-# TODO: I need to change the content detail view to use the new multitable views
 # TODO: Pull in a few Jomboy Youtube channels
 # TODO: Fill out all dead links
 # TODO: Style all users templates

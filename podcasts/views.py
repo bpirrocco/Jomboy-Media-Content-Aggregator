@@ -10,11 +10,6 @@ from .common.youtube.functions import create_video_list
 
 LOGIN_URL = "../accounts/login/"
 
-
-# TODO: I need to add a favorites page for users that accesses the podcasts_episode_favorite table
-#       to show the episodes the user has favorited. Or rather add it as a template I can
-#       include using the selector on the dashboard.
-
 class ContentView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
 
