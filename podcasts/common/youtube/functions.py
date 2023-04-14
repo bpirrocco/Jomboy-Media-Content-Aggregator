@@ -39,12 +39,14 @@ def fetch_youtube_channels(channel_id_dict):
     channel_id_list = []
     for item in channel_id_dict:
         channel_id_list.append(item.get("channel_id"))
-        channel_id_list = ','.join(channel_id_list)
+    
+    channel_id_list = ','.join(channel_id_list)
 
     category_list = []
     for item in channel_id_dict:
         category_list.append(item.get("category"))
-        category_list.reverse()
+    
+    category_list.reverse()
 
     request = youtube.channels().list(
         part="snippet,contentDetails,statistics",
