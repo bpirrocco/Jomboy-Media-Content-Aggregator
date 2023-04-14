@@ -4,17 +4,17 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView, DetailView
 
-from .models import Episode, Content, YoutubeContent
+from .models import Episode, Content, YoutubeContent, PodcastContent
 
 from .common.youtube.functions import create_video_list
 
 LOGIN_URL = "../accounts/login/"
 
-class ContentView(LoginRequiredMixin, ListView):
+class PodcastView(LoginRequiredMixin, ListView):
     login_url = LOGIN_URL
 
     template_name = "dashboard/content.html"
-    model = Content 
+    model = PodcastContent 
     context_object_name = "content"
 
     def get_queryset(self):
@@ -23,7 +23,7 @@ class ContentView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["content"] = Content.objects.all()
+        context["content"] = PodcastContent.objects.all()
         context["favorites"] = self.get_queryset()
         return context
 
