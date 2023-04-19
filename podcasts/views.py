@@ -105,3 +105,7 @@ class YoutubeContentView(LoginRequiredMixin, ListView):
         context["video_list"] = create_video_list(self.get_queryset()[0].upload_id)
 
         return context
+
+def TestView(request):
+    video = "HVsySz-h9r4"
+    return render(request, "dashboard/iframe_player.html", {"video": video})

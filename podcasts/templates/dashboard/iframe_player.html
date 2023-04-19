@@ -2,3 +2,11 @@
 {% load static %}
 {% block content %}
 
+<div id="player"></div>
+
+<script src="{% static 'podcasts/player.js' %}"
+        defer
+        data-video="{{ video }}"
+        id="test"></script>
+
+{% endblock %}
