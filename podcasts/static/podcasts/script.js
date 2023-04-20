@@ -66,10 +66,9 @@ const app = {
 
 
     // Outline what I need to do:
-    //     Set up event listener to watch for a click on content items
-    //     When clicked, retrieve the data-video-id attribute of the item
-    //     And put that ID into the iframe player builder
-    // I did all of this but this youtube iframe api stinks
+    //     I figured out the iframe problem! We have video!
+    //     However, I'd like the cards to resize themselves when selected.
+    //     This sounds like a tomorrow task.
 
     getVideoId: (e) => {
         let videoId = `${e.target.dataset.videoId}`;
