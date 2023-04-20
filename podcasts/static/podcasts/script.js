@@ -69,6 +69,7 @@ const app = {
     //     Set up event listener to watch for a click on content items
     //     When clicked, retrieve the data-video-id attribute of the item
     //     And put that ID into the iframe player builder
+    // I did all of this but this youtube iframe api stinks
 
     getVideoId: (e) => {
         let videoId = `${e.target.dataset.videoId}`;
@@ -79,9 +80,27 @@ const app = {
         let videoId = app.getVideoId(e);
         let thumbnail = e.target;
         let parent = thumbnail.parentNode;
+        let iframe = createIframe(videoId);
+        var tag = document.createElement('script');
+
+        tag.src = "{% static 'podcasts/player.js' %}";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         parent.removeChild(thumbnail);
-        parent.setAttribute("id", "player");
+        parent.appendChild(iframe);
+    },
+
+    createIframe: (videoId) => {
+        let iframe = document.createElement('iframe');
+        iframe.setAttribute("id", "existing-iframe-example");
+        iframe.setAttribute("width", "640");
+        iframe.setAttribute("height", "360");
+        iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?enablejsapi=1`);
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("style", "border: solid 4px #37474F");
+
+        return iframe;
     },
 
     ytContentScript: () => {
