@@ -80,11 +80,12 @@ const app = {
         let videoId = app.getVideoId(e);
         let thumbnail = e.target;
         let parent = thumbnail.parentNode;
-        let iframe = createIframe(videoId);
-        var tag = document.createElement('script');
-
+        let iframe = app.createIframe(videoId);
+        iframe.classList.add("col-md-10");
+        
+        let tag = document.createElement('script');
         tag.src = "{% static 'podcasts/player.js' %}";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
+        let firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         parent.removeChild(thumbnail);
