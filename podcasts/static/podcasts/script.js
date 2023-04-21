@@ -72,7 +72,7 @@ const app = {
 
     getVideoId: (e) => {
         let videoId = `${e.target.dataset.videoId}`;
-        return videoId
+        return videoId;
     },
 
     callPlayer: (e) => {
@@ -88,11 +88,14 @@ const app = {
         let firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        parent.removeChild(thumbnail);
-        parent.appendChild(iframe);
-        row.classList.add("row");
-        row.classList.add("no-gutters");
-        row.parentNode.classList.remove("w-25")
+        // parent.removeChild(thumbnail);
+        // parent.appendChild(iframe);
+        if (thumbnail.id == "thumbnail") {
+            parent.replaceChild(iframe, thumbnail);
+            row.classList.add("row");
+            row.classList.add("no-gutters");
+            row.parentNode.classList.remove("w-25");
+        }
     },
 
     createIframe: (videoId) => {
