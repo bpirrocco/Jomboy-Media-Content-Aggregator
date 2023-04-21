@@ -80,7 +80,8 @@ const app = {
         let thumbnail = e.target;
         let parent = thumbnail.parentNode;
         let iframe = app.createIframe(videoId);
-        iframe.classList.add("col-md-10");
+        iframe.classList.add("col-md-6");
+        let row = parent.parentNode;
         
         let tag = document.createElement('script');
         tag.src = "{% static 'podcasts/player.js' %}";
@@ -89,6 +90,9 @@ const app = {
 
         parent.removeChild(thumbnail);
         parent.appendChild(iframe);
+        row.classList.add("row");
+        row.classList.add("no-gutters");
+        row.parentNode.classList.remove("w-25")
     },
 
     createIframe: (videoId) => {
