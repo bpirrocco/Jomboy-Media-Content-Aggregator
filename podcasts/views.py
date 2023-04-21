@@ -101,7 +101,7 @@ class YoutubeContentView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         name = self.get_queryset()[0].name
-        context["channel"] = YoutubeContent.objects.filter(name=name)
+        context["channel"] = YoutubeContent.objects.filter(name=name)[0]
         context["jumbotron"] = self.get_queryset()[0].image
         context["channel_id"] = self.get_queryset()[0].id
         context["video_list"] = create_video_list(self.get_queryset()[0].upload_id)

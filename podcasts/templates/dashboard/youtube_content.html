@@ -12,6 +12,7 @@
                height: 70vh; display: flex; justify-content: center; align-items: center;">
     </div>  
 
+    
     <a href= "{% url 'users:favorite_add' channel_id %}" 
         {% if channel in favorites %} 
             class="btn btn-danger favorite" 
