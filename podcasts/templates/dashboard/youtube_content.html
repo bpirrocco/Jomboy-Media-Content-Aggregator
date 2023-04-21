@@ -12,6 +12,16 @@
                height: 70vh; display: flex; justify-content: center; align-items: center;">
     </div>  
 
+    <a href= "{% url 'users:favorite_add' channel_id %}" 
+        {% if channel in favorites %} 
+            class="btn btn-danger favorite" 
+        {% else %} 
+            class="btn btn-outline-danger favorite" 
+        {% endif %}
+        id="favorite">
+        <i class="bi bi-heart"></i>
+    </a>
+
     <div class="row justify-content-center">        
         {% for item in video_list %}
             <section class="card w-25 m-2 text-center">
