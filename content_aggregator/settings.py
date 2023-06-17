@@ -24,9 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-ustuo*i=5urpu12(uvbks3+iwmzh(&)$s&#o^0$6#$+l=qws&m'
 SECRET_KEY = os.environ.get("SECRET_KEY")
-# YOUTUBE_API_KEY = "AIzaSyAjT-aX28enzAFhWDEWlbn-eEhQIAJ8uHI"
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
