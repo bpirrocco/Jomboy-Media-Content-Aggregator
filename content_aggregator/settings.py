@@ -65,12 +65,9 @@ ROOT_URLCONF = 'content_aggregator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [
-        #     BASE_DIR / "podcasts/templates/",
-        #     BASE_DIR / "users/templates/"
-        # ],
         'DIRS': [
-            [os.path.join(BASE_DIR, 'jomboy_contentagg_frontend', 'build')],
+            BASE_DIR / "podcasts/templates/",
+            BASE_DIR / "users/templates/"
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,8 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIR = [
-    # BASE_DIR / "static",
-    [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]
+    BASE_DIR / "static",
 ]
 
 # Default primary key field type
