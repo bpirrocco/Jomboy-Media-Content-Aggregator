@@ -65,9 +65,12 @@ ROOT_URLCONF = 'content_aggregator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [
+        #     BASE_DIR / "podcasts/templates/",
+        #     BASE_DIR / "users/templates/"
+        # ],
         'DIRS': [
-            BASE_DIR / "podcasts/templates/",
-            BASE_DIR / "users/templates/"
+            [os.path.join(BASE_DIR, 'jomboy_contentagg_frontend', 'build')],
         ],
         'APP_DIRS': True,
         'OPTIONS': {
